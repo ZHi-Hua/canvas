@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>konvajs实例</title>
+    <style>
+        body{margin: 0px;padding: 0px;}
+        .container{width: 800px;height: 600px;border: 1px solid #726e6f;margin-left: auto;margin-right: auto;}
+    </style>
+    <link rel="stylesheet" href="konva/smartMenu.css"/>
+    <script type="text/javascript" src="konva/konva.js"></script>
+    <script type="text/javascript" src="./javascript/jquery.js"></script>
+</head>
+<body>
+<div id="container" class="container"></div>
+</body>
+<script>
+    $(function () {
+        var container = document.getElementById("container");
+        var width = 800;
+        var height = 600;
+        // 1、创建舞台 Stage
+        var stage = new Konva.Stage({
+            container:'container', // 设置容器的 id
+            width:width, // 宽度
+            height:height, // 高度
+        });
+        // 2、创建层 Layer
+        var  layer = new Konva.Layer();
+
+        // 2.1、创建文本
+        var text = new Konva.Text({
+            x: 10,
+            y: 5,
+            text: '使用konvajs实例：',
+            fontSize: 14, // 默认值为12
+            fontFamily: 'Calibri', // 默认是Arial
+            fill: 'green'
+        });
+        // 添加到层
+        layer.add(text);
+
+        // 2.2、创建一条直线
+        var straight = new Konva.Line({
+            x:10, // x轴的位置
+            y:10, // y轴的位置
+            points:[10,10,700,10], // 排列：平面阵列的点坐标，定义[x1，y1，x2，y2，x3，y3]。
+            stroke:'red', // 颜色
+            tension:1 // 数：较高的值将导致更曲线,默认值为0。
+        });
+        layer.add(straight);
+
+        // 2.3、创建曲线
+        var curve = new Konva.Line({
+            x:10,
+            y:20,
+            points:[50,20,100,30,200,20,300,30,400,20,500,30,600,20],
+            stroke:'red',
+            tension:2
+        });
+        layer.add(curve);
+
+        // 2.4、创建矩形
+        var rect = new Konva.Rect({
+            x:10,
+            y:100,
+            width: 100, // 宽度
+            height: 50, // 高度
+            fill: 'red', // 填充颜色
+            stroke: 'black', // 描边颜色
+            strokeWidth: 1 // 边框的宽度
+        });
+        layer.add(rect);
+
+        // 2.5、创建圆
+        var circle = new Konva.Circle({
+            x:200,
+            y:120,
+            radius:35, // 半径
+            fill: 'pink', // 填充颜色
+            stroke: 'blue' // 边框的宽度
+        });
+        layer.add(circle);
+
+        // 2.6、创建椭圆
+        var ellipse = new Konva.Ellipse({
+            x:300,
+            y:120,
+            radius : {
+                x : 50, // x轴半径
+                y : 30 // y轴半径
+            },
+            fill: 'red',
+            stroke: 'blue'
+        });
+        layer.add(ellipse);
+
+        // 2.7、图片（渐变的图片）
+        var imgs ="data:image/jpeg;base64,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";
+        var imageObj010 = new Image();
+        imageObj010.src = imgs; // 图片的路径
+        var image = new Konva.Image({
+            x: 10,
+            y: 200,
+            image: imageObj010,
+            width: 750, // 宽度
+            height: 10 // 高度
+        });
+        layer.add(image);
+        layer.batchDraw();
+        // 将层添加至舞台容器中
+        stage.add(layer);
+        stage.batchDraw();
+    });
+</script>
+</html>

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>涂鸦画布</title>
+    <link type="text/css" href=./stylesheets/reset.css rel=stylesheet>
+    <link type="text/css" href=./stylesheets/main1.css rel=stylesheet>
+    <link type="text/css" href=./stylesheets/wColorPicker.css rel="stylesheet">
+    <script type="text/javascript" src=./javascript/jquery.js></script>
+    <script type="text/javascript" src=./javascript/main.js></script>
+    <script type="text/javascript" src=./javascript/draw.js></script>
+    <script type="text/javascript" src=./javascript/Text.js></script>
+    <script type="text/javascript" src=./javascript/handingWrite.js></script>
+    <script type="text/javascript" src=./javascript/jquery-ui.js></script>
+    <script type="text/javascript" src="./javascript/wColorPicker.js"></script>
+</head>
+<body>
+<div class="xDesign">
+    <div class="x-paint">
+        <div class="x-operation">
+            <div class="x-operation-item x-shape">
+                <div class="x-title">形状</div>
+                <div class="x-shape-box">
+                    <div class="x-border x-o-content">
+                        <section class="x-icon triangle">
+                            <img src="./images/triangle.png" alt="">
+                            <article class="x-name">三角形</article>
+                        </section>
+                        <section class="x-icon circle">
+                            <img src="./images/yuanxing.png" alt="">
+                            <article class="x-name">圆形</article>
+                        </section>
+                        <section class="x-icon square">
+                            <img src="./images/juxing.png" alt="">
+                            <article class="x-name">矩形</article>
+                        </section>
+                        <section class="x-icon ellipse">
+                            <img src="./images/tuoyuan.png" alt="">
+                            <article class="x-name">椭圆</article>
+                        </section>
+                        <section class="x-icon drawLine">
+                            <img src="./images/zhixian.png" alt="">
+                            <article class="x-name">直线</article>
+                        </section>
+                        <section class="x-icon pencil">
+                            <img src="./images/pencil.png" alt="">
+                            <article class="x-name">画笔</article>
+                        </section>
+                        <section class="x-icon eraser">
+                            <img src="./images/eraser.png" alt="">
+                            <article class="x-name">橡皮擦</article>
+                        </section>
+                    </div>
+                </div>
+            </div>
+            <div class="x-operation-item x-instrument">
+                <div class="x-title">工具</div>
+                <div class="x-border x-i-content">
+                    <section class="x-i-icon fillText">
+                        <img src="./images/wenzi.png" alt="">
+                        <article class="x-name">文字</article>
+                    </section>
+                    <section class="x-i-icon x-i-icon-img">
+                        <img src="./images/tupian.png" alt="">
+                        <article class="x-name">图片</article>
+                        <input id="changeImg" class="x-tool-img" type="file" title="" accept="image/*"
+                               accept="image/gif,image/jpeg,image/jpg,image/png">
+                    </section>
+                    <section class="x-i-icon x-i-icon-img fillColor">
+                        <!--<img src="./images/tianchong.png" alt="">-->
+                        <div id="fillColor" class="wColorPicker"></div><!--type="color"-->
+                        <article class="x-name">填充</article>
+                    </section>
+                </div>
+            </div>
+            <div class="x-operation-item x-line">
+                <div class="x-title">线条</div>
+                <div class="x-line-box">
+                   <!-- <div class="x-border x-line-content">
+                        <img src="./images/xiantiao.png" alt="">
+                        <article class="x-name">粗细</article>
+                    </div>-->
+                    <div class="x-border x-triangle">
+                        <section class="ant-dropdown-trigger x-triangle-img line showLine">
+                            <img src="./images/sanjiaoxing.svg" alt="">
+                        </section>
+                    </div>
+                    <div id="line_size" class="line_size normal">
+                        <ul>
+                            <li>
+                                <button data-value="1" class="small"><span style="width: 2px; height: 2px;"></span>
+                                </button>
+                            </li>
+                            <li>
+                                <button data-value="2" class="small"><span style="width: 3px; height: 3px;"></span>
+                                </button>
+                            </li>
+                            <li>
+                                <button data-value="3" class="small selected"><span
+                                        style="width: 4px; height: 4px;"></span></button>
+                            </li>
+                            <li>
+                                <button data-value="4"><span style="width: 5px; height: 5px;"></span></button>
+                            </li>
+                            <li>
+                                <button data-value="5"><span style="width: 6px; height: 6px;"></span></button>
+                            </li>
+                            <li>
+                                <button data-value="6"><span style="width: 8px; height: 8px;"></span></button>
+                            </li>
+                            <li>
+                                <button data-value="7"><span style="width: 10px; height: 10px;"></span></button>
+                            </li>
+                            <li>
+                                <button data-value="9"><span style="width: 12px; height: 12px;"></span></button>
+                            </li>
+                            <li>
+                                <button data-value="10"><span style="width: 14px; height: 14px;"></span></button>
+                            </li>
+                            <li>
+                                <button data-value="16" class="large"><span style="width: 20px; height: 20px;"></span>
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="x-operation-item x-color">
+                <div class="x-color-item x-color-item-m">
+                    <div class="x-title">颜色版</div>
+                    <div class="c-color-i-c">
+                        <section class="x-color-board-item false"
+                                 style="background-color: rgb(0, 0, 0);"></section>
+                        <section class="x-color-board-item false"
+                                 style="background-color: rgb(126, 125, 126);"></section>
+                        <section class="x-color-board-item false"
+                                 style="background-color: rgb(142, 29, 47);"></section>
+                        <section class="x-color-board-item false"
+                                 style="background-color: rgb(236, 32, 40);"></section>
+                        <section class="x-color-board-item false"
+                                 style="background-color: rgb(248, 134, 61);"></section>
+                        <section class="x-color-board-item false"
+                                 style="background-color: rgb(253, 242, 1);"></section>
+                        <section class="x-color-board-item false"
+                                 style="background-color: rgb(28, 173, 71);"></section>
+                        <section class="x-color-board-item false"
+                                 style="background-color: rgb(1, 162, 231);"></section>
+                        <section class="x-color-board-item false"
+                                 style="background-color: rgb(64, 72, 203);"></section>
+                        <section class="x-color-board-item false"
+                                 style="background-color: rgb(163, 73, 163);"></section>
+                        <section class="x-color-board-item false"
+                                 style="background-color: rgb(253, 253, 253);"></section>
+                        <section class="x-color-board-item false"
+                                 style="background-color: rgb(192, 195, 193);"></section>
+                        <section class="x-color-board-item false"
+                                 style="background-color: rgb(185, 121, 84);"></section>
+                        <section class="x-color-board-item false"
+                                 style="background-color: rgb(248, 181, 206);"></section>
+                        <section class="x-color-board-item false"
+                                 style="background-color: rgb(253, 202, 19);"></section>
+                        <section class="x-color-board-item false"
+                                 style="background-color: rgb(239, 227, 178);"></section>
+                        <section class="x-color-board-item false"
+                                 style="background-color: rgb(180, 230, 23);"></section>
+                        <section class="x-color-board-item false"
+                                 style="background-color: rgb(156, 217, 232);"></section>
+                        <section class="x-color-board-item false"
+                                 style="background-color: rgb(111, 147, 188);"></section>
+                        <section class="x-color-board-item false"
+                                 style="background-color: rgb(199, 191, 228);"></section>
+                    </div>
+                </div>
+                <div class="x-color-item x-color-item-r">
+                    <div class="x-title">编辑颜色</div>
+                    <div class="c-color-i-c">
+                        <img src="./images/bianjiyanse.png" alt="" class="changeColor-img">
+                        <input id="editColor" type="color" class="changeColor" style="visibility: hidden">
+                    </div>
+                </div>
+            </div>
+            <div class="x-operation-item x-tools">
+                <div class="x-title">其他</div>
+                <div class="x-border x-tools-box">
+                    <section class="tool-btn x-clear">
+                        <img src="./images/clear.png">
+                        <article class="x-name">清除</article>
+                    </section>
+                    <section class="tool-btn x-preStep">
+                        <img src="./images/cancle.png">
+                        <article class="x-name">上一步</article>
+                    </section>
+                    <section class="tool-btn x-nextStep">
+                        <img src="./images/next.png">
+                        <article class="x-name">下一步</article>
+                    </section>
+                </div>
+            </div>
+        </div>
+        <div class="x-canvas-content" style="background-color: rgb(255, 255, 255);">
+            <div class="x-container" tabindex="-1">
+                <div class="canvasjs-content" role="presentation"
+                     style="position: relative; user-select: none;margin:5px auto; width: 750px; height: 450px;">
+                    <canvas id="canvas" style="border: 1px #8d8d8d solid;background: transparent;position: absolute;margin:0px auto;">
+                        浏览器不支持，请升级浏览器或换个浏览器试试。
+                    </canvas>
+                    <canvas id="canvas_bak" style="border: 1px black solid;background: transparent;position: absolute;margin:0px auto;"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>
