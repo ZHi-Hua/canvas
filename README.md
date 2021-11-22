@@ -18,3 +18,6 @@
 
 ## zCanvas
 ![image](https://user-images.githubusercontent.com/57804782/142809509-12a054ca-129e-4786-a686-1f32f6f16d5d.png)
+
+## canvasText.html
+![image](https://user-images.githubusercontent.com/57804782/142809793-220c0658-901a-40f7-8aa6-7b457d4c0c5f.png)
