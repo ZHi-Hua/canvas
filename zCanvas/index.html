@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <!-- <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no"> -->
+    <title>手写签名</title>
+
+    <link rel="stylesheet" href="css\index.css">
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script type="text/javascript" src="js\index.js"></script>
+
+</head>
+
+<body>
+<div>
+    <canvas id="showCanvas" width="350" height="500"></canvas>
+    <canvas id="tempCanvas"></canvas>
+    <!-- style="display:none" -->
+    <textarea id="textArea" rows="1" cols="5" autofocus></textarea>
+</div>
+<div>
+    <canvas id="canvas" width="400" height="200"></canvas>
+</div>
+<div id="controller">
+    <div id="dclear">
+        <button class="btnLeft" id="btnCleanShowPage">清空</button>
+        <button class="btnLeft" id="btnChangeRow">换行</button>
+        <button class="btnLeft" id="btnShowLines">行间线</button>
+        <button class="btnLeft" id="btnDisLines">隐行线</button>
+        <button class="btnLeft" id="btnDrawAxis">坐标</button>
+        <button class="btnLeft" id="btnWrite">插入文字</button>
+        <button class="btnLeft" id="btnEraser">橡皮擦</button>
+        <button class="btnLeft" id="btnPan">笔</button>
+    </div>
+    <div id="dcolors">
+        <div class="dcolor dblack" data-color="black"></div>
+        <div class="dcolor dred" data-color="red"></div>
+        <div class="dcolor dgreen" data-color="green"></div>
+        <div class="dcolor dblue" data-color="blue"></div>
+        <div class="dcolor dpink" data-color="pink"></div>
+    </div>
+</div>
+</body>
+
+</html>

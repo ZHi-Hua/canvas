@@ -1,0 +1,78 @@
+/* *{
+    padding:0px;
+    margin:0px;
+} */
+#showCanvas{
+    background:#ffffff;
+    position:absolute;
+    top:0px;
+    left:500px;
+
+    display:block;
+    border:1px solid #d3d3d3;
+}
+
+#canvas{
+    background:#ffffff;
+    position:absolute;
+    top:500px;
+    left:500px;
+    /* margin:0 auto; */
+    display:block;
+    border:1px solid #d3d3d3;
+}
+#tempCanvas{
+    display :none ;
+    top:500px;
+    left:500px;
+    border:1px solid #d3d3d3;
+}
+
+#controller{
+
+    position:absolute;
+    left:850px;
+    width:50px;
+    height:500px;
+}
+#textArea{
+    position:absolute;
+    left:600px;
+    z-index: -1;
+}
+.btnLeft{
+    text-align:center;
+    /* display:block; */
+    position:relative;
+    left:10px;
+    top:10px;
+    width:50px;
+    height:50px;
+}
+.dcolor{
+    position:relative;
+    left:12px;
+    top:15px;
+    float:left;
+    width:35px;
+    height:35px;
+    margin-right:5px;
+}
+.dblack{
+    background-color:black;
+}
+.dred{
+    background-color:red;
+}
+.dgreen{
+    background-color:green;
+}
+.dblue{
+    background-color:blue;
+}
+.dpink{
+    background-color:pink;
+}
+.sel{
+    border:solid 4px #b312f3;
+}
