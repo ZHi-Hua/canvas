@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>涂鸦画布</title>
+    <link type="text/css" href=./stylesheets/reset.css rel=stylesheet>
+    <link type="text/css" href=stylesheets/main.css rel=stylesheet>
+
+</head>
+<body>
+<div class="xDesign">
+    <div class="x-paint">
+        <div class="x-operation">
+            <div class="x-operation-item x-shape">
+                <div class="x-title">形状</div>
+                <div class="x-shape-box">
+                    <div class="x-border x-o-content">
+                        <section class="x-icon select" onclick="flagFn(this, 'select');">
+                            <img src="./images/xuanze.png" alt="">
+                            <article class="x-name">选择</article>
+                        </section>
+                        <section class="x-icon circle" onclick="flagFn(this, 'circle');">
+                            <img src="./images/yuanxing.png" alt="">
+                            <article class="x-name">圆形</article>
+                        </section>
+                        <section class="x-icon square" onclick="flagFn(this, 'rectH');">
+                            <img src="./images/juxing.png" alt="">
+                            <article class="x-name">矩形</article>
+                        </section>
+                        <section class="x-icon ellipse" onclick="flagFn(this, 'ellipse');">
+                            <img src="./images/tuoyuan.png" alt="">
+                            <article class="x-name">椭圆</article>
+                        </section>
+                        <section class="x-icon drawLine" onclick="flagFn(this, 'line');">
+                            <img src="./images/zhixian.png" alt="">
+                            <article class="x-name">直线</article>
+                        </section>
+                        <section class="x-icon pencil" onclick="flagFn(this, 'pencil');">
+                            <img src="./images/pencil.png" alt="">
+                            <article class="x-name">画笔</article>
+                        </section>
+                        <section class="x-icon eraser" onclick="flagFn(this, 'eraser');">
+                            <img src="./images/eraser.png" alt="">
+                            <article class="x-name">橡皮擦</article>
+                        </section>
+                    </div>
+                </div>
+            </div>
+            <div class="x-operation-item x-instrument">
+                <div class="x-title">工具</div>
+                <div class="x-border x-i-content">
+                    <section class="x-i-icon fillText" onclick="flagFn(this, 'text');">
+                        <img src="./images/wenzi.png" alt="">
+                        <article class="x-name">文字</article>
+                    </section>
+                    <section class="x-i-icon x-i-icon-img">
+                        <img src="./images/tupian.png" alt="">
+                        <article class="x-name">图片</article>
+                        <input class="x-tool-img" type="file" title=""
+                               accept="image/gif,image/jpeg,image/jpg,image/png">
+                    </section>
+                    <section class="x-i-icon">
+                        <img src="./images/tianchong.png" alt="">
+                        <article class="x-name">填充</article>
+                    </section>
+                </div>
+            </div>
+            <div class="x-operation-item x-line">
+                <div class="x-title">线条</div>
+                <div class="x-line-box">
+                    <div class="x-border x-line-content">
+                        <img src="./images/xiantiao.png" alt="">
+                        <article class="x-name">粗细</article>
+                    </div>
+                    <div class="x-border x-triangle">
+                        <section class="ant-dropdown-trigger x-triangle-img line showLine">
+                            <img src="./images/sanjiaoxing.svg" alt="">
+                        </section>
+                    </div>
+                    <div id="line_size" class="line_size normal">
+                        <ul>
+                            <li>
+                                <button data-value="1" class="small"><span style="width: 2px; height: 2px;"></span>
+                                </button>
+                            </li>
+                            <li>
+                                <button data-value="2" class="small"><span style="width: 3px; height: 3px;"></span>
+                                </button>
+                            </li>
+                            <li>
+                                <button data-value="3" class="small selected"><span
+                                        style="width: 4px; height: 4px;"></span></button>
+                            </li>
+                            <li>
+                                <button data-value="4"><span style="width: 5px; height: 5px;"></span></button>
+                            </li>
+                            <li>
+                                <button data-value="5"><span style="width: 6px; height: 6px;"></span></button>
+                            </li>
+                            <li>
+                                <button data-value="6"><span style="width: 8px; height: 8px;"></span></button>
+                            </li>
+                            <li>
+                                <button data-value="7"><span style="width: 10px; height: 10px;"></span></button>
+                            </li>
+                            <li>
+                                <button data-value="9"><span style="width: 12px; height: 12px;"></span></button>
+                            </li>
+                            <li>
+                                <button data-value="16"><span style="width: 16px; height: 16px;"></span></button>
+                            </li>
+                            <li>
+                                <button data-value="32" class="large"><span style="width: 28px; height: 28px;"></span>
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="x-operation-item x-color">
+                <div class="x-color-item x-color-item-m">
+                    <div class="x-title">颜色版</div>
+                    <div class="c-color-i-c">
+                        <section class="x-color-board-item false"
+                                 style="background-color: rgb(0, 0, 0);" onmouseup="selectColorBoard(this)"></section>
+                        <section class="x-color-board-item false"
+                                 style="background-color: rgb(126, 125, 126);" onmouseup="selectColorBoard(this)"></section>
+                        <section class="x-color-board-item false"
+                                 style="background-color: rgb(142, 29, 47);" onmouseup="selectColorBoard(this)"></section>
+                        <section class="x-color-board-item false"
+                                 style="background-color: rgb(236, 32, 40);" onmouseup="selectColorBoard(this)"></section>
+                        <section class="x-color-board-item false"
+                                 style="background-color: rgb(248, 134, 61);" onmouseup="selectColorBoard(this)"></section>
+                        <section class="x-color-board-item false"
+                                 style="background-color: rgb(253, 242, 1);" onmouseup="selectColorBoard(this)"></section>
+                        <section class="x-color-board-item false"
+                                 style="background-color: rgb(28, 173, 71);" onmouseup="selectColorBoard(this)"></section>
+                        <section class="x-color-board-item false"
+                                 style="background-color: rgb(1, 162, 231);" onmouseup="selectColorBoard(this)"></section>
+                        <section class="x-color-board-item false"
+                                 style="background-color: rgb(64, 72, 203);" onmouseup="selectColorBoard(this)"></section>
+                        <section class="x-color-board-item false"
+                                 style="background-color: rgb(163, 73, 163);" onmouseup="selectColorBoard(this)"></section>
+                        <section class="x-color-board-item false"
+                                 style="background-color: rgb(253, 253, 253);" onmouseup="selectColorBoard(this)"></section>
+                        <section class="x-color-board-item false"
+                                 style="background-color: rgb(192, 195, 193);" onmouseup="selectColorBoard(this)"></section>
+                        <section class="x-color-board-item false"
+                                 style="background-color: rgb(185, 121, 84);" onmouseup="selectColorBoard(this)"></section>
+                        <section class="x-color-board-item false"
+                                 style="background-color: rgb(248, 181, 206);" onmouseup="selectColorBoard(this)"></section>
+                        <section class="x-color-board-item false"
+                                 style="background-color: rgb(253, 202, 19);" onmouseup="selectColorBoard(this)"></section>
+                        <section class="x-color-board-item false"
+                                 style="background-color: rgb(239, 227, 178);" onmouseup="selectColorBoard(this)"></section>
+                        <section class="x-color-board-item false"
+                                 style="background-color: rgb(180, 230, 23);" onmouseup="selectColorBoard(this)"></section>
+                        <section class="x-color-board-item false"
+                                 style="background-color: rgb(156, 217, 232);" onmouseup="selectColorBoard(this)"></section>
+                        <section class="x-color-board-item false"
+                                 style="background-color: rgb(111, 147, 188);" onmouseup="selectColorBoard(this)"></section>
+                        <section class="x-color-board-item false"
+                                 style="background-color: rgb(199, 191, 228);" onmouseup="selectColorBoard(this)"></section>
+                        <section class="x-color-board-item false"
+                                 style="background-color: rgb(255, 255, 255);" onmouseup="selectColorBoard(this)"></section>
+                        <section class="x-color-board-item false"
+                                 style="background-color: rgb(255, 255, 255);" onmouseup="selectColorBoard(this)"></section>
+                        <section class="x-color-board-item false"
+                                 style="background-color: rgb(255, 255, 255);" onmouseup="selectColorBoard(this)"></section>
+                        <section class="x-color-board-item false"
+                                 style="background-color: rgb(255, 255, 255);" onmouseup="selectColorBoard(this)"></section>
+                        <section class="x-color-board-item false"
+                                 style="background-color: rgb(255, 255, 255);" onmouseup="selectColorBoard(this)"></section>
+                        <section class="x-color-board-item false"
+                                 style="background-color: rgb(255, 255, 255);" onmouseup="selectColorBoard(this)"></section>
+                        <section class="x-color-board-item false"
+                                 style="background-color: rgb(255, 255, 255);" onmouseup="selectColorBoard(this)"></section>
+                        <section class="x-color-board-item false"
+                                 style="background-color: rgb(255, 255, 255);" onmouseup="selectColorBoard(this)"></section>
+                        <section class="x-color-board-item false"
+                                 style="background-color: rgb(255, 255, 255);" onmouseup="selectColorBoard(this)"></section>
+                        <section class="x-color-board-item false"
+                                 style="background-color: rgb(255, 255, 255);" onmouseup="selectColorBoard(this)"></section>
+                    </div>
+                </div>
+                <div class="x-color-item x-color-item-r">
+                    <div class="x-title">编辑颜色</div>
+                    <div class="c-color-i-c">
+                        <input id="editColor" type="color" class="changeColor" onchange="changeColor(this)">
+                    </div>
+                </div>
+            </div>
+            <div class="x-operation-item x-tools">
+                <div class="x-title">其他</div>
+                <div class="x-border x-tools-box">
+                    <section class="tool-btn x-clear">
+                        <img src="./images/clear.png">
+                        <article class="x-name">清除</article>
+                    </section>
+                    <section class="tool-btn x-preStep">
+                        <img src="./images/cancle.png">
+                        <article class="x-name">上一步</article>
+                    </section>
+                    <section class="tool-btn x-nextStep">
+                        <img src="./images/next.png">
+                        <article class="x-name">下一步</article>
+                    </section>
+                </div>
+            </div>
+        </div>
+        <div class="x-canvas-content" style="background-color: rgb(255, 255, 255);">
+            <!--<div class="x-container" tabindex="-1">
+                <div class="canvasjs-content" role="presentation" id="container"
+                     style="position: relative; user-select: none;margin:5px auto; border:1px black solid;">
+                </div>
+            </div>-->
+            <div id="container" style="width:1000px;height:600px;margin:0px auto;border:1px black solid;"></div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src=./js/jquery.js></script>
+<script type="text/javascript" src=./js/konva.js></script>
+<script type="text/javascript" src=./js/palette.js></script>
+<script>
+    let draw=[], // 绘制的图形数组
+        graphNow=null, // 当前图形
+        flag=null, // 激活绘制-铅笔 pencil:铅笔 ellipse:椭圆 rect:矩形 rectH:矩形-空心
+        drawing=false, // 绘制中
+        graphColor='black',
+        pointStart=[]; // 初始坐标
+        size = 1;
+    //  历史记录变量
+    var history = new Array();
+    var historyStep = 0;
+
+    // 点击画图
+    function flagFn(t, v) {
+        flag=v;
+        /*let tools=document.getElementById('btnList')
+            ,aBtn=tools.getElementsByTagName('button');
+        for (let i=0; i<aBtn.length; i++) {
+            aBtn[i].className='';
+        }*/
+        $(".x-active").removeClass("x-active");
+        t.classList.add('x-active');
+    }
+
+    // 选择颜色
+    function changeColor(t) {
+        $(".x-color-board-active").removeClass("x-color-board-active");
+        graphColor=t.value;
+    }
+    function selectColorBoard(obj){
+        selectColorBoardChangeCss(obj);
+        graphColor = obj.style.backgroundColor;
+    }
+    //选择颜色版,修改css
+    function selectColorBoardChangeCss(obj) {
+        //设置选中属性，被选中的代码变蓝色
+        var siblings = obj.parentNode.children;
+        for (var i = 0; i < siblings.length; i++) {
+            if (siblings[i] !== obj) {
+                siblings[i].classList.remove("x-color-board-active");
+            }
+            //siblings.classList.remove('x-active');
+        }
+        obj.classList.add('x-color-board-active');
+    }
+
+    // 移除图形
+    function removeFn() {
+        if (graphNow) {
+            graphNow.remove();
+            stage.find('Transformer').destroy();
+            layer.draw();
+            graphNow=null;
+        } else {
+            alert('请选择图形')
+        }
+    }
+
+    // 选择线条大小
+    $(".line_size button").click(function(){
+        size=$(this).data("value");
+        $("#line_size").hide();
+    });
+
+    // 隐藏线条宽度板
+    $(".line").hover(function(){
+        showLineSize($(this)[0]);
+    },function(){
+        var ss=setTimeout(function(){
+            $(".line_size").fadeOut(200);
+        },100);
+        $(".line_size").hover(function(){
+            $(".line_size").show();
+            clearTimeout(ss);
+        },function(){
+            $(".line_size").fadeOut(200);
+        });
+    });
+    //展开线条大小选择器
+    var showLineSize = function(obj){
+        if($("#line_size").is(":hidden")){
+            var top = $(obj).offset().top+40;
+            var left = $(obj).offset().left-10;
+            $("#line_size")[0].style.left = left + "px";
+            $("#line_size")[0].style.top = top   + "px";
+            $("#line_size").show();
+        }else{
+            $("#line_size").hide();
+        }
+    }
+
+    var width =  1000, height = 600;
+    // 1 create stage
+    const stage=new Konva.Stage({
+        container: 'container',
+        width: width,
+        height: height
+    });
+
+    // 2 create layer
+    const layer=new Konva.Layer();
+    stage.add(layer);
+
+   /* var canvas = document.createElement('canvas');
+    canvas.width = stage.width();
+    canvas.height = stage.height();
+    // created canvas we can add to layer as "Konva.Image" element
+    var image = new Konva.Image({
+        image: canvas,
+        x: 0,
+        y: 0,
+    });
+    layer.add(image);
+    var context = canvas.getContext('2d');*/
+    // 3 create our shape
+    // 画椭圆
+    // drawEllipse();
+    // drawPencil([5, 70, 140, 23], 'red', 4)
+    // drawRect(20, 20, 122, 50, 'red', 4);
+
+    // 移除改变大小事件
+    stage.on('mousedown', function(e) {
+        // 如果点击空白处 移除图形选择框
+        // console.log(e);
+
+        if (e.target === stage) {
+            stageMousedown(flag, e);
+
+            // 移除图形选择框
+            stage.find('Transformer').destroy();
+            layer.draw();
+
+            return;
+        }
+        // 如果没有匹配到就终止往下执行
+        if (!e.target.hasName('line') && !e.target.hasName('ellipse') && !e.target.hasName('rect') && !e.target.hasName('circle') && !e.target.hasName('pencil')) {
+            return;
+        }
+        // 移除图形选择框
+        stage.find('Transformer').destroy();
+
+        // 当前点击的对象赋值给graphNow
+        graphNow=e.target;
+        // 创建图形选框事件
+        const tr = new Konva.Transformer({
+            borderStroke: '#000', // 虚线颜色
+            borderStrokeWidth: 1, //虚线大小
+            borderDash: [5], // 虚线间距
+            keepRatio: false // 不等比缩放
+        });
+        layer.add(tr);
+        tr.attachTo(e.target);
+        layer.draw();
+    });
+
+    // 鼠标移动
+    stage.on('mousemove', function (e) {
+        if (graphNow && flag && drawing) {
+            stageMousemove(flag, e);
+        }
+    });
+
+    // 鼠标放开
+    stage.on('mouseup', function (e) {
+        if(graphNow && flag && drawing){
+            stageMouseup(flag, e);
+        }
+        /*if(graphNow && flag && drawing){
+            saveStateToHistory(stage);
+        }*/
+        drawing=false;
+        if (flag === 'text') flag=null;
+    });
+
+    function saveStateToHistory(state) {
+        /*history = history.slice(0, historyStep + 1);
+        history = history.concat([state]);*/
+        history.push(layer.toDataURL());
+        historyStep++;
+    }
+    /*function saveHistory() {
+        step++;//控制撤销操作的索引，上一步下一步
+        imgList.push(canvas.toDataURL());
+    }*/
+    //上一步
+    function pre() {
+        if (historyStep >= 0) {
+            historyStep--;
+            context.clearRect(0,0,width,height);
+            var img = new Image();
+            img.src = history[historyStep];
+            img.onload = function () {
+                context.drawImage(img , 0 ,0 , img.width , img.height , 0 ,0 , canvasWidth , canvasHeight);
+            };//从数组中调取历史记录，进行重绘
+        } else {
+            alert('没有上一步了');
+        }
+    }
+
+    // 下一步
+    function next() {
+        if (historyStep < history.length - 1) {
+            historyStep++;
+            context.clearRect(0,0,canvasWidth,canvasHeight);
+            var img = new Image();
+            img.src = history[historyStep];
+            img.onload = function () {
+                context.drawImage(img , 0 ,0 , img.width , img.height , 0 ,0 , canvasWidth , canvasHeight);
+            };//重绘
+        } else {
+            alert('没有下一步了');
+        }
+    }
+
+    //清除画布
+    // 选择线条大小
+    $(".x-clear").click(function(){
+        layer.removeChildren();
+        layer.clear();
+    });
+</script>
+</body>
+</html>
