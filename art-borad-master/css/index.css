@@ -1,0 +1,143 @@
+.wrap {
+    position: relative;
+}
+.content-wrap {
+    width:100%;
+    position: absolute;
+}
+.canvas-container {
+    display: none;
+    opacity: 0.56;
+    position: relative;
+}
+.canvas-container .exit {
+    position: absolute;
+    right:0;
+}
+.canvas-container .exit img {
+    width:32px;
+    cursor: pointer;
+}
+#imageFile, #downloadLink {
+    display: none;
+}
+.canvas-container {
+    width: 100%;
+    height: 100%;
+}
+#tools{
+    position: fixed;
+    left: 20%;
+    bottom: 30px;
+    width: 50%;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+#operations button{
+    width: 30px;
+    height: 30px;
+    border: none;
+    outline: none;
+    background-size: 20px 20px;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-color: #fff;
+    margin: 0 6px;
+    transition: 0.3s;
+    cursor: pointer;
+    border: 2px solid transparent;
+}
+#operations button.pencil{
+    background-image: url('../image/pen.png');
+}
+#operations button.rectangle{
+    background-image: url('../image/rect.png');
+}
+#operations button.circle{
+    background-image: url('../image/circle.png');
+}
+#operations button.font{
+    background-image: url('../image/font.png');
+}
+#operations button.arrow{
+    background-image: url('../image/arrow.png');
+}
+#operations button.redo{
+    background-image: url('../image/redo.png');
+}
+#operations button.undo{
+    background-image: url('../image/undo.png');
+}
+#operations button.eraser{
+    background-image: url('../image/eraser.png');
+}
+#operations button.clear{
+    background-image: url('../image/clear.png');
+}
+#operations button.save{
+    background-image: url('../image/save.png');
+}
+#operations button.color{
+    background-image: url('../image/color.png');
+}
+#operations .palette{
+    width:0px;
+    height:30px;
+    padding: 0;
+    overflow: hidden;
+    position: relative;
+    left:-30px;
+}
+#operations .range{
+    cursor: pointer;
+    height: 1px;
+    position: relative;
+    top: -10px;
+}
+.font-detail {
+    display: none;
+    position: absolute;
+    left: 20%;
+    top: -100%;
+    font-size: 14px;
+    color: darkgray;
+    border: 1px solid #81A4BD;
+    padding: 1%;
+    border-radius: 5px;
+}
+.font-detail select {
+    border: 1px solid #e5e5e5;
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    margin-left:5px;
+    padding:3px;
+}
+.font-detail select:focus {
+    outline: none;
+}
+.font-detail select[name="font"] {
+    width:70px;
+    margin-right:10px;
+}
+.font-detail select[name="size"] {
+    width:50px;
+    margin-right:10px;
+}
+.textBox{
+    width: 200px;
+    min-height: 20px;
+    _height: 120px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 3px;
+    outline: 0;
+    border: 1px solid #a0b3d6;
+    font-size: 12px;
+    word-wrap: break-word;
+    overflow-x: hidden;
+    overflow-y: auto;
+    _overflow-y: visible;
+}

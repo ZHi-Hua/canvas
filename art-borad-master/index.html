@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>artBorad</title>
+    <link rel="stylesheet" href="./css/index.css">
+</head>
+<body>
+<!--<div>
+    这是原页面
+    <img src="./image/background.jpg" alt="" width="100%;">
+</div>-->
+<div class="wrap">
+    <div class="content-wrap">
+       <!-- <img src="./image/background.jpg" alt="">-->
+        <div>
+            <button onclick="note();">笔记</button>
+            <!--<p>这是只会花瓣，哈哈哈</p>-->
+        </div>
+    </div>
+    <div class="canvas-container" id="canvas-container">
+        <span class="exit" id="exit"><img src="./image/error.png" alt=""></span>
+        <canvas id="canvas"></canvas>
+        <div id="tools">
+            <div id="operations">
+                <button type="button" id="pencil" class="pencil" title="画笔"></button>
+                <button type="button" id="rectangle" class="rectangle" title="矩形"></button>
+                <button type="button" id="circle" class="circle" title="圆形"></button>
+                <button type="button" id="font" class="font" title="文字"></button>
+                <button type="button" id="arrow" class="arrow" title="箭头"></button>
+                <button type="button" id="eraser" class="eraser" title="橡皮擦"></button>
+                <button type="button" id="undo" class="undo" title="撤销"></button>
+                <button type="button" id="redo" class="redo" title="重做"></button>
+                <button type="button" id="clear" class="clear" title="清屏"></button>
+                <button type="button" id="save" class="save" title="保存"></button>
+                <button type="button" id="color" class="color"></button>
+                <input type="color" id="palette" class="palette" />
+                <input type="range" class="range" id="lineWidth" min="1" max="20" value="1" />
+                <input type="file" id="imageFile" name="image"/>
+                <a id="downloadLink"></a>
+            </div>
+            <div class="font-detail" id="fontDetail">
+                字体<select name="font" id="fontFamily">
+                <option value="SimSun">宋体</option>
+                <option value="FangSong">仿宋</option>
+                <option value="SimHei">黑体</option>
+                <option value="Microsoft Yahei" selected>微软雅黑</option>
+                <option value="KaiTi">楷体</option>
+                <option value="sans-serif">sans-serif</option>
+                <option value="serif">serif</option>
+                <option value="cursive">cursive</option>
+                <option value="system-ui">system-ui</option>
+            </select>
+                大小<select name="size" id="fontSize">
+                <option value="12px">12px</option>
+                <option value="14px" selected>14px</option>
+                <option value="18px">18px</option>
+                <option value="20px">20px</option>
+                <option value="24px">24px</option>
+                <option value="28px">28px</option>
+            </select>
+            </div>
+        </div>
+        <!-- 模拟文本域 -->
+        <div id="textBox" class="textBox" contenteditable="true" style="width:200px;border-style:dashed;resize:none;background:transparent;position:absolute;display:none;"></div>
+    </div>
+</div>
+
+
+<script src="./js/canvs.js"></script>
+<script>
+
+    function note() {
+        document.getElementById('canvas-container').style.display="block";
+    }
+    var exit = document.getElementById('exit');
+    exit.addEventListener('click', exitMsg, false);
+
+    function exitMsg()
+    {
+        document.getElementById('canvas-container').style.display="none";
+    }
+</script>
+</body>
+</html>
