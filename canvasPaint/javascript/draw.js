@@ -52,7 +52,7 @@ var draw_graph = function(graphType,obj){
             //context_bak.beginPath();
             brush.beginStroke({startX:startX,startY:startY});
         }else if(graphType == 'eraser'){
-            context.clearRect(startX - size * 10 ,  startY - size * 10 , size * 20 , size * 20);
+            context.clearRect(startX - size * 5 ,  startY - size * 5 , size * 10 , size * 10);
         }else if(graphType == 'fillText'){
             if(document.getElementsByTagName('textarea').length==0){
                 fontSize = '14px';
@@ -181,14 +181,14 @@ var draw_graph = function(graphType,obj){
             clearContext();
             context_bak.beginPath();
             context_bak.strokeStyle =  '#000000';
-            context_bak.moveTo(x - size * 10 ,  y - size * 10 );
-            context_bak.lineTo(x + size * 10  , y - size * 10 );
-            context_bak.lineTo(x + size * 10  , y + size * 10 );
-            context_bak.lineTo(x - size * 10  , y + size * 10 );
-            context_bak.lineTo(x - size * 10  , y - size * 10 );
+            context_bak.moveTo(x - size * 5 ,  y - size * 5 );
+            context_bak.lineTo(x + size * 5  , y - size * 5 );
+            context_bak.lineTo(x + size * 5  , y + size * 5 );
+            context_bak.lineTo(x - size * 5  , y + size * 5 );
+            context_bak.lineTo(x - size * 5  , y - size * 5 );
             context_bak.stroke();
             if(canDraw){
-                context.clearRect(x - size * 10 ,  y - size * 10 , size * 20 , size * 20);
+                context.clearRect(x - size * 5 ,  y - size * 5 , size * 10 , size * 10);
             }
         }else if(graphType == 'ellipse'){
             //椭圆
@@ -234,6 +234,8 @@ var draw_graph = function(graphType,obj){
     var mouseout = function(){
         if(graphType == 'pencil'){
             canDraw = false;
+        }else{
+            clearContext();
         }
     }
 
