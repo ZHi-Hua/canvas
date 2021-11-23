@@ -1,0 +1,314 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>高级画布</title>
+    <style>
+        html,
+        body {
+            padding: 0;
+            margin: 0;
+        }
+
+        ul,
+        li {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            cursor: pointer;
+        }
+
+        ul {
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 999999999999;
+            width: 800px;
+            height: 50px;
+            background-color: rgb(0, 119, 255, 0.8);
+        }
+
+        li {
+            text-align: center;
+            line-height: 50px;
+            min-width: 50px;
+            height: 100%;
+            float: left;
+        }
+    </style>
+</head>
+
+<body style="background-color: #E5E4E5;">
+<ul id="tools">
+    <li class="clickfn" type="pen">
+        铅笔
+    </li>
+    <li class="clickfn" type="line">
+        直线
+    </li>
+    <li class="clickfn" type="arrow">
+        箭头
+    </li>
+    <li class="clickfn" type="rect">
+        矩形
+    </li>
+    <li class="clickfn" type="circle">
+        圆
+    </li>
+    <li class="clickfn" type="ellipse">
+        椭圆
+    </li>
+    <li class="clickfn" type="move">
+        选择
+    </li>
+    <li class="clickfn" type="deled">
+        清空
+    </li>
+    <li class="clickfn" type="save">
+        上传
+    </li>
+    <li class="clickfn" type="down">
+        下载
+    </li>
+    <li class="clickfn" type="reload">
+        加载最近上传
+    </li>
+    <li class="clickfn" type="delete">
+        删除
+    </li>
+    <a id="download" href="" download></a>
+</ul>
+<div style="margin-top:10px;">
+    <div id="canvasDiv" class="canvasDiv" style="width:100%;height: 100%">
+        <canvas id="c" width="1000" height="1000">请使用支持HTML5的浏览器</canvas>
+    </div>
+</div>
+<script src="https://cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/fabric.js/2.4.0/fabric.min.js"></script>
+<script>
+    (() => {
+        var [imgW, imgH] = [1600, 1200];
+        var g = window.innerWidth / imgW
+        var type = "pen" // 默认为铅笔
+        var downBol = false; // 是否按下左键
+        var mouseLength = {}; // 鼠标移动的水平 欲垂直长度
+        var obj = {} // 当前绘画的对象
+        var mouseStart = {}; // 鼠标按下的起点
+        var mouseEnd = {}; // 鼠标谈起的终点
+        var canvasJSON = {}; // 画布的json 数据
+        var color = "blue"; // 全局颜色
+        var drawWidth = 5; // 全局画笔宽度
+        var canvas = this.__canvas = new fabric.Canvas('c', {
+            isDrawingMode: true, // 自由绘画
+            selection: false, // 多选
+            width: window.innerWidth, // canvas 画布宽高度
+            height: imgH * g,
+
+        });
+        var self = this;
+        canvas.freeDrawingBrush.color = color; //设置铅笔画画颜色
+        canvas.freeDrawingBrush.width = drawWidth; //设置铅笔 宽度
+        window.zoom = window.zoom ? window.zoom : 1; // 坐标转换 防止页面缩放时定位不准
+        jQuery(".clickfn").on("click", function () {
+            var drawType = jQuery(this).attr("type");
+            type = drawType;
+            if (drawType == "pen") {
+                // 铅笔
+                canvas.isDrawingMode = true;
+            }
+            if (drawType != "pen") {
+                canvas.isDrawingMode = false;
+            }
+            if (drawType == "deled") {
+                canvas.clear() // 清空画布
+                setBackgroundImage() // 补上背景图
+            }
+            if (drawType == "move") {
+                if (canvas._objects.length - 1 >= 0) {
+                    // 移动选取默认选取最后逻辑
+                    canvas.setActiveObject(canvas.item(canvas._objects.length - 1));
+                    canvas.add(canvas.item(canvas._objects.length - 1));
+                }
+                canvas.skipTargetFind = false; // canvas元素可选取
+                canvas.selection = true; // canvas元素多选
+            }
+            if (drawType != "move") {
+                canvas.skipTargetFind = true;
+                canvas.selection = false;
+            }
+            if (drawType == "reload") { // 重新加载
+                canvas.loadFromDatalessJSON(canvasJSON) // 将json 写入画布
+            }
+            if (drawType == "save") { // 保存 可配合ajax
+                canvasJSON = canvas.toJSON() //这里得到json对象 存入后端服务器
+                console.log(canvasJSON)
+
+            }
+            if (drawType == "down") { // 下载 base64 位图片
+                var download = document.getElementById("download");
+                var url = canvas.toDataURL("image/png", {
+                    crossOrigin: 'Anonymous'
+                });
+                download.href = url;
+                download.click()
+            }
+            if (type == "delete") { //删除
+                canvas.skipTargetFind = false; // canvas元素可选取
+                var el = canvas.getActiveObject(); // 获取当前选择的元素
+                if (!el._objects) {
+                    canvas.remove(el);
+                } else {
+                    el._objects.forEach(item => canvas.remove(item))
+
+                }
+            }
+        })
+        // 设置背景
+        setBackgroundImage()
+
+        function setBackgroundImage() {
+            // 貌似只能引用 网络资源的图片
+            canvas.setBackgroundImage('', canvas.renderAll.bind(canvas), {
+                crossOrigin: 'Anonymous',
+                scaleX: canvas.width / imgW,
+                scaleY: canvas.height / imgH,
+            });
+        }
+        canvas.on("mouse:down", function (e) {
+            var xy = transformMouse(e.e.offsetX, e.e.offsetY);
+            mouseStart.x = xy.x;
+            mouseStart.y = xy.y;
+            downBol = true;
+            if (type == "delete") {
+                var el = canvas.getActiveObject(); // 获取当前选择的元素
+                canvas.remove(el);
+
+            }
+        });
+        canvas.on("mouse:up", function (e) {
+            downBol = false;
+            obj = false
+        });
+        canvas.on("mouse:move", function (e) {
+            if (!downBol) { // 没有按下左键的移动 不做处理
+                return;
+            }
+            var xy = transformMouse(e.e.offsetX, e.e.offsetY);
+            mouseEnd.x = xy.x;
+            mouseEnd.y = xy.y;
+            mouseLength = {
+                w: mouseEnd.x - mouseStart.x,
+                h: mouseEnd.y - mouseStart.y
+            }
+            drawing(type);
+
+        });
+        canvas.on("mouse:dblclick", function (e) {
+            console.log("触发")
+        });
+
+
+        function transformMouse(mouseX, mouseY) {
+            return {
+                x: mouseX / window.zoom,
+                y: mouseY / window.zoom
+            };
+        }
+
+        function drawing(type) {
+            var canvasObject = null;
+            if (obj) {
+                canvas.remove(obj);
+            }
+            switch (type) {
+                case "line":
+                    canvasObject = new fabric.Line([mouseStart.x, mouseStart.y, mouseEnd.x, mouseEnd.y], {
+                        stroke: color,
+                        strokeWidth: drawWidth
+                    });
+                    break;
+                case "rect":
+                    canvasObject = new fabric.Rect({
+                        width: Math.abs(mouseLength.w),
+                        height: Math.abs(mouseLength.h),
+                        left: mouseLength.w > 0 ? mouseStart.x : mouseStart.x - Math.abs(mouseLength.w),
+                        top: mouseLength.h > 0 ? mouseStart.y : mouseStart.y - Math.abs(mouseLength.h),
+                        angle: 0,
+                        stroke: color,
+                        strokeWidth: drawWidth,
+                        fill: 'rgba(0,0,0,0)'
+                    });
+                    break;
+                case "circle": //正圆
+                    var r = Math.sqrt((mouseLength.w * mouseLength.w) + (mouseLength.h * mouseLength.h))
+                    var top = mouseStart.y;
+                    var left = mouseStart.x;
+                    console.log(top, left, r, "r")
+                    canvasObject = new fabric.Circle({
+                        left: left,
+                        top: top,
+                        originX: 'center',
+                        originY: 'center',
+                        fill: "rgba(255, 255, 255, 0)",
+                        radius: r,
+                        stroke: color,
+                        strokeWidth: drawWidth
+                    });
+                    break;
+                case "ellipse": // 椭圆
+                    var canvasObject = new fabric.Ellipse({
+                        left: mouseStart.x,
+                        top: mouseStart.y,
+                        stroke: color,
+                        fill: "rgba(255, 255, 255, 0)",
+                        originX: "center",
+                        originY: "center",
+                        rx: Math.abs(mouseLength.w),
+                        ry: Math.abs(mouseLength.h),
+                        strokeWidth: drawWidth
+                    });
+                    break;
+                case "arrow": //箭头
+                    canvasObject = new fabric.Path(drawArrow(mouseStart.x, mouseStart.y, mouseEnd.x, mouseEnd.y, 20, 20), {
+                        stroke: color,
+                        fill: "rgba(255,255,255,0)",
+                        strokeWidth: drawWidth
+                    });
+                    break;
+            }
+            if (canvasObject) {
+                canvas.add(canvasObject)
+                obj = canvasObject
+            }
+            //绘制箭头方法
+            function drawArrow(fromX, fromY, toX, toY, theta, headlen) {
+                theta = typeof theta != "undefined" ? theta : 30;
+                headlen = typeof theta != "undefined" ? headlen : 10;
+                // 计算各角度和对应的P2,P3坐标
+                var angle = Math.atan2(fromY - toY, fromX - toX) * 180 / Math.PI,
+                    angle1 = (angle + theta) * Math.PI / 180,
+                    angle2 = (angle - theta) * Math.PI / 180,
+                    topX = headlen * Math.cos(angle1),
+                    topY = headlen * Math.sin(angle1),
+                    botX = headlen * Math.cos(angle2),
+                    botY = headlen * Math.sin(angle2);
+                var arrowX = fromX - topX,
+                    arrowY = fromY - topY;
+                var path = " M " + fromX + " " + fromY;
+                path += " L " + toX + " " + toY;
+                arrowX = toX + topX;
+                arrowY = toY + topY;
+                path += " M " + arrowX + " " + arrowY;
+                path += " L " + toX + " " + toY;
+                arrowX = toX + botX;
+                arrowY = toY + botY;
+                path += " L " + arrowX + " " + arrowY;
+                return path;
+            }
+        }
+    })()
+</script>
+</body>
+
+</html>)
