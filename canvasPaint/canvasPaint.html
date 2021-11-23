@@ -10,7 +10,9 @@
     <script type="text/javascript" src=./javascript/main.js></script>
     <script type="text/javascript" src=./javascript/draw.js></script>
     <script type="text/javascript" src=./javascript/Text.js></script>
+<!--    <script type="text/javascript" src=./javascript/brush.js></script>-->
     <script type="text/javascript" src=./javascript/handingWrite.js></script>
+    <script type="text/javascript" src=./javascript/handWriting.js></script>
     <script type="text/javascript" src=./javascript/jquery-ui.js></script>
     <script type="text/javascript" src="./javascript/wColorPicker.js"></script>
 </head>
@@ -18,6 +20,13 @@
 <div class="xDesign">
     <div class="x-paint">
         <div class="x-operation">
+            <div class="x-operation-item x-options">
+                <div class="x-title">选项</div>
+                <div class="x-options-item">
+                    <div id="painting" class="x-i-options-item">画板</div>
+                    <div id="handWrite" class="x-i-options-item">手写板</div>
+                </div>
+            </div>
             <div class="x-operation-item x-shape">
                 <div class="x-title">形状</div>
                 <div class="x-shape-box">
@@ -207,6 +216,11 @@
                     <canvas id="canvas_bak" style="border: 1px black solid;background: transparent;position: absolute;margin:0px auto;"></canvas>
                 </div>
             </div>
+        </div>
+        <div>
+            <canvas id="showCanvas" width="750" height="450"></canvas>
+            <canvas id="tempCanvas"></canvas>
+            <canvas id="canvasHand" width="750" height="450"></canvas>
         </div>
     </div>
 </div>
